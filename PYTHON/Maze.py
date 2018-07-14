@@ -1,8 +1,13 @@
+#Adaptation of Dijkstra's shortest path using lists that allows for the
+#removal of 1 wall that will result in the shortest possible path from
+#array[0][0] to array[length-1][length-1]. Note this was used on paths with
+#a guarantee path from one end to the other. Concept idea from foobar with google.
+
 def PATH(h, v, maze, path, width, height):
     path[h][v] = 1
     x = [h]
     y = [v]
-    while True:
+    while True: #search all 4 directions for possible path. if there is Not a 1 add that (x,y) to a list to be checked next till end
         currentX = x.pop(0)
         currentY = y.pop(0)
         if currentX+1 >= 0:
@@ -49,7 +54,7 @@ def answer(maze):
     path2 = [[-2 for i in range(width)] for j in range(height)]
     PATH(0, 0, maze, path, width, height)
     PATH(height-1, width-1, maze, path2, width, height)
-    for i in range(height):
+    for i in range(height):#add together the distance from the start of the maze THEN from end of maze
         for j in range(width):
             if path[i][j] and path2[i][j]:
                 if (path[i][j]+path2[i][j]) < shortest and (path[i][j] > 0 and path2[i][j] > 0):
